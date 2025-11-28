@@ -3,12 +3,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from 'swiper';
 import "swiper/css";
+import { Icon } from "./icons";
+import { IconName } from "@/types/icon";
+
 
 interface Slider {
     title: string;
     description: string[];
     image: string;
-    icon: string;
+    icon: IconName;
 }
 
 export interface FeatureSliderProps {
@@ -29,16 +32,14 @@ const SliderFeature = memo(({ slider, isActive, slideTo, colors }: SliderFeature
     className={`${!isActive && 'sm:opacity-50'} cursor-pointer flex flex-col`}
   >
     <div className="flex flex-row items-center py-2">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={colors[1]} className="size-6 mr-3">
-        <path fillRule="evenodd" d={slider.icon} clipRule="evenodd" />
-      </svg>
-      <h2 className={`text-[var(--bg-color3)] text-2xl font-bold`} style={{"--bg-color3": colors[3] } as React.CSSProperties}>  
+      <Icon name={slider.icon} className="size-7 mr-3 text-[var(--color1)]"/>
+      <h2 className={`text-[var(--color3)] text-2xl font-bold`}>  
         {slider.title}
       </h2>
     </div>
     <ul className="list-disc">
     {slider.description.map((item, index) => (
-        <li key={index} className={`text-[var(--bg-color3)] text-lg ml-8`} style={{"--bg-color3": colors[3] } as React.CSSProperties}>{item}</li>
+        <li key={index} className={`text-[var(--color3)] text-lg ml-8`}>{item}</li>
       ))}
     </ul>
   </div>
@@ -110,10 +111,8 @@ export const FeatureSlider = ({ FeatureSlider, colors }: FeatureSliderProps) => 
   const isMobile = useIsMobile();
 
   return isMobile ? (
-    <div className={`py-24 bg-[var(--bg-color)]`}  style={{"--bg-color": colors[2] } as React.CSSProperties}>
-      <div className={`container m-auto flex flex-row items-stretch p-8 shadow-lg border-3 rounded-3xl border-transparent 
-        [background:linear-gradient(var(--bg-color2),var(--bg-color2))_padding-box,linear-gradient(135deg,var(--bg-color0),var(--bg-color2),var(--bg-color2))_border-box]`}
-        style={{"--bg-color0": colors[0],"--bg-color2": colors[2] } as React.CSSProperties}>
+    <div className={`py-24 bg-[var(--color2)]`}  style={{"--color0": colors[0],"--color1": colors[1],"--color2": colors[2],"--color3": colors[3],"--color4": colors[4],} as React.CSSProperties}>
+      <div className={`container m-auto flex flex-row items-stretch p-8 shadow-lg border-3 rounded-3xl border-transparent [background:linear-gradient(var(--color2),var(--color2))_padding-box,linear-gradient(135deg,var(--color0),var(--color2),var(--color2))_border-box]`}>
         <div className="flex flex-col w-full h-full justify-evenly">
           {FeatureSlider.map((slider, index) => (
             <>
@@ -124,8 +123,7 @@ export const FeatureSlider = ({ FeatureSlider, colors }: FeatureSliderProps) => 
                 slideTo={() => slideTo(index)}
                 colors={colors}
               />
-              <div className={`w-full h-full bg-[var(--bg-color0)] relative rounded-xl my-5`} 
-                      style={{"--bg-color0": colors[0] } as React.CSSProperties}>
+              <div className={`w-full h-full bg-[var(--color0)] relative rounded-xl my-5`}>
                 <img
                   src={slider.image} 
                   alt={slider.title} 
@@ -138,10 +136,8 @@ export const FeatureSlider = ({ FeatureSlider, colors }: FeatureSliderProps) => 
       </div>
     </div>
     ) : ( 
-    <div className={`py-24 bg-[var(--bg-color)]`}  style={{"--bg-color": colors[2] } as React.CSSProperties}>
-      <div className={`container m-auto flex flex-row items-stretch h-[500px] p-8 shadow-lg border-3 rounded-3xl border-transparent 
-         [background:linear-gradient(var(--bg-color2),var(--bg-color2))_padding-box,linear-gradient(135deg,var(--bg-color0),var(--bg-color2),var(--bg-color2))_border-box]`}
-         style={{"--bg-color0": colors[0],"--bg-color2": colors[2] } as React.CSSProperties}>
+    <div className={`py-24 bg-[var(--color2)]`} style={{"--color0": colors[0],"--color1": colors[1],"--color2": colors[2],"--color3": colors[3],"--color4": colors[4],} as React.CSSProperties}>
+      <div className={`container m-auto flex flex-row items-stretch h-[500px] p-8 shadow-lg border-3 rounded-3xl border-transparent [background:linear-gradient(var(--color2),var(--color2))_padding-box,linear-gradient(135deg,var(--color0),var(--color2),var(--color2))_border-box]`}>
         <div className="flex flex-col w-1/2 h-full justify-evenly">
           {FeatureSlider.map((slider, index) => (
             <SliderFeature
@@ -168,8 +164,7 @@ export const FeatureSlider = ({ FeatureSlider, colors }: FeatureSliderProps) => 
           >
             {FeatureSlider.map((slider) => (
               <SwiperSlide key={slider.title} className="relative">
-                <div className={`w-full h-full bg-[var(--bg-color0)] relative rounded-xl`} 
-                      style={{"--bg-color0": colors[0] } as React.CSSProperties}>
+                <div className={`w-full h-full bg-[var(--color0)] relative rounded-xl`}>
                 <img
                   src={slider.image} 
                   alt={slider.title} 
@@ -180,8 +175,8 @@ export const FeatureSlider = ({ FeatureSlider, colors }: FeatureSliderProps) => 
                 {FeatureSlider.map((_,index) => (
                   <div key={index} onClick={() => slideTo(index)} className="h-1.5 bg-gray-200 rounded-full overflow-hidden flex-1 cursor-pointer">
                     <div
-                      className={`h-full bg-[var(--bg-color0)] transition-all duration-300 ease-linear`}
-                      style={{width: index === activeIndex ? `${progress}%` :'0%', "--bg-color0": colors[0] } as React.CSSProperties}
+                      className={`h-full bg-[var(--color0)] transition-all duration-300 ease-linear`}
+                      style={{width: index === activeIndex ? `${progress}%` :'0%'} as React.CSSProperties}
                     />
                   </div>
                 ))}
